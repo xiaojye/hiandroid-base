@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,8 +29,20 @@ public abstract class HiActivity extends AppCompatActivity implements HiView, Vi
     @Nullable
     protected Bundle mSavedInstanceState;
 
-    @Nullable
-    protected View mContentView;
+    @Override
+    public void setContentView(int layoutResID) {
+        super.setContentView(layoutResID);
+    }
+
+    @Override
+    public void setContentView(View view) {
+        super.setContentView(view);
+    }
+
+    @Override
+    public void setContentView(View view, ViewGroup.LayoutParams params) {
+        super.setContentView(view, params);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,11 +58,10 @@ public abstract class HiActivity extends AppCompatActivity implements HiView, Vi
 
         Object contentView = getContentView(mSavedInstanceState);
         if (contentView instanceof View) {
-            mContentView = (View) contentView;
+            setContentView((View) contentView);
         } else if (contentView instanceof Integer) {
-            mContentView = View.inflate(mContext, (Integer) contentView, null);
+            setContentView(View.inflate(mContext, (Integer) contentView, null));
         }
-        if (mContentView != null) setContentView(mContentView);
 
         initView(mSavedInstanceState);
         initData(mSavedInstanceState);
@@ -69,7 +81,9 @@ public abstract class HiActivity extends AppCompatActivity implements HiView, Vi
      * @return View，Int；返回Int表示layoutId
      */
     @Nullable
-    protected abstract Object getContentView(@Nullable Bundle savedInstanceState);
+    protected Object getContentView(@Nullable Bundle savedInstanceState) {
+        return null;
+    }
 
     /**
      * 初始化视图

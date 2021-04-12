@@ -20,7 +20,7 @@ import com.jye.hiandroid.util.HiToastUtils;
  * @author jye
  * @since 1.0
  */
-public abstract class HiFragment extends Fragment implements HiView, Backable ,View.OnClickListener{
+public abstract class HiFragment extends Fragment implements HiView, Backable, View.OnClickListener {
 
     protected Context mContext;
     protected Activity mActivity;
@@ -28,9 +28,6 @@ public abstract class HiFragment extends Fragment implements HiView, Backable ,V
 
     @Nullable
     protected Bundle mSavedInstanceState;
-
-    @Nullable
-    protected View mContentView;
 
     @Override
     public void onAttach(Context activity) {
@@ -47,20 +44,20 @@ public abstract class HiFragment extends Fragment implements HiView, Backable ,V
         if (getArguments() != null) {
             handleArgs(getArguments());
         }
-        if (null != mContentView) {
-            ViewGroup parent = (ViewGroup) mContentView.getParent();
+        if (null != getView()) {
+            ViewGroup parent = (ViewGroup) getView().getParent();
             if (null != parent) {
-                parent.removeView(mContentView);
+                parent.removeView(getView());
             }
         } else {
             Object contentView = getContentView(mSavedInstanceState);
             if (contentView instanceof View) {
-                mContentView = (View) contentView;
+                return (View) contentView;
             } else if (contentView instanceof Integer) {
-                mContentView = View.inflate(mContext, (Integer) contentView, null);
+                return View.inflate(mContext, (Integer) contentView, null);
             }
         }
-        return mContentView;
+        return null;
     }
 
     @Override
@@ -84,7 +81,9 @@ public abstract class HiFragment extends Fragment implements HiView, Backable ,V
      * @return View，Int；返回Int表示layoutId
      */
     @Nullable
-    protected abstract Object getContentView(@Nullable Bundle savedInstanceState);
+    protected Object getContentView(@Nullable Bundle savedInstanceState) {
+        return null;
+    }
 
     /**
      * 初始化视图

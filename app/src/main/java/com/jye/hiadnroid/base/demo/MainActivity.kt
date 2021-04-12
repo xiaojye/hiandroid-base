@@ -1,11 +1,9 @@
 package com.jye.hiadnroid.base.demo
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import com.jye.hiandroid.base.view.HiActivity
+import com.jye.hiandroid.ioc.annotation.IocActivity
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-    }
+@IocActivity(layout = R.layout.activity_main)
+class MainActivity : HiActivity() {
+
 }

@@ -11,8 +11,8 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -48,17 +48,17 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
-    compileOnly rootProject.ext.dependencies["hiandroid-core"]
-    compileOnly rootProject.ext.dependencies["hiandroid-ioc"]
+    api rootProject.ext.dependencies["hiandroid-core"]
+    api rootProject.ext.dependencies["hiandroid-ioc"]
 
     // 【retrofit-converter-gson】中已经包含gson依赖
-//    compileOnly rootProject.ext.dependencies["gson"]
+//    api rootProject.ext.dependencies["gson"]
 
-    compileOnly rootProject.ext.dependencies["rxjava2"]
-    compileOnly rootProject.ext.dependencies["rxandroid2"]
+    api rootProject.ext.dependencies["rxjava2"]
+    api rootProject.ext.dependencies["rxandroid2"]
 
-    compileOnly rootProject.ext.dependencies["retrofit"]
-    compileOnly rootProject.ext.dependencies["retrofit-converter-gson"]
-    compileOnly rootProject.ext.dependencies["retrofit-adapter-rxjava2"]
-    compileOnly rootProject.ext.dependencies["okhttp3-logging-interceptor"]
+    api rootProject.ext.dependencies["retrofit"]
+    api rootProject.ext.dependencies["retrofit-converter-gson"]
+    api rootProject.ext.dependencies["retrofit-adapter-rxjava2"]
+    api rootProject.ext.dependencies["okhttp3-logging-interceptor"]
 }

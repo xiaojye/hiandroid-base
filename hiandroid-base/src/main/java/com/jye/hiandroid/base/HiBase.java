@@ -85,11 +85,17 @@ public class HiBase {
                 if (config.openIoc()) {
                     Class clazz = activity.getClass();
                     if (clazz.isAnnotationPresent(IocActivity.class)) {
-                        IocActivity component = (IocActivity) clazz.getAnnotation(IocActivity.class);
-                        iocContext.registerBean(component.value(), activity);
+                        IocActivity iocActivity = (IocActivity) clazz.getAnnotation(IocActivity.class);
+                        iocContext.registerBean(iocActivity.value(), activity);
+
+                        int layoutId = iocActivity.layout();
+                        if (layoutId != 0) {
+                            activity.setContentView(layoutId);
+                        }
+
+                        Object src = iocContext.getBean(clazz);
+                        iocContext.setBeanData(clazz, src);
                     }
-                    Object src = iocContext.getBean(clazz);
-                    iocContext.setBeanData(clazz, src);
                 }
             }
 
