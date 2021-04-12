@@ -1,0 +1,64 @@
+apply plugin: 'com.android.library'
+// JitPack Maven
+apply plugin: 'com.github.dcendents.android-maven'
+// Your Group
+group = 'com.github.xiaojye'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packageBuildConfig false //导出不含Build.Config的aar
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
+    compileOnly rootProject.ext.dependencies["hiandroid-core"]
+    compileOnly rootProject.ext.dependencies["hiandroid-ioc"]
+
+    // 【retrofit-converter-gson】中已经包含gson依赖
+//    compileOnly rootProject.ext.dependencies["gson"]
+
+    compileOnly rootProject.ext.dependencies["rxjava2"]
+    compileOnly rootProject.ext.dependencies["rxandroid2"]
+
+    compileOnly rootProject.ext.dependencies["retrofit"]
+    compileOnly rootProject.ext.dependencies["retrofit-converter-gson"]
+    compileOnly rootProject.ext.dependencies["retrofit-adapter-rxjava2"]
+    compileOnly rootProject.ext.dependencies["okhttp3-logging-interceptor"]
+}
